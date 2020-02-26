@@ -15,7 +15,10 @@ class HomePage extends StatelessWidget {
         title: 'JSON Advanced',
         theme: ThemeData(primarySwatch: Colors.teal),
         home: Scaffold(
-          appBar: AppBar(title: Text('JSON Advanced',)),
+          appBar: AppBar(
+              title: Text(
+            'JSON Advanced',
+          )),
           body: Center(
             child: FutureBuilder<List<dynamic>>(
                 future: fetchListCategory(),
@@ -29,15 +32,19 @@ class HomePage extends StatelessWidget {
                             (category) => Card(
                               child: GestureDetector(
                                 child: ListTile(
-                                  title: Text('${category.name} ${category.featuredImage}'),
+                                  title: Text(
+                                      '${category.name} ${category.acf != null ? category.acf.featuredImage : ''}'),
                                 ),
                                 onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => CategoryScreen(),
-                                        settings: RouteSettings(arguments: ScreenArguments(category.id, category.name))
-                                      ));
+                                          builder: (context) =>
+                                              CategoryScreen(),
+                                          settings: RouteSettings(
+                                              arguments: ScreenArguments(
+                                                  category.id,
+                                                  category.name))));
                                 },
                               ),
                             ),
@@ -62,11 +69,11 @@ Future<List<Category>> fetchListCategory() async {
 
   if (response.statusCode == 200) {
     List categories = json.decode(response.body);
-    //print(categories);
+//    print(categories[0]);
 // return categories;
-    return categories
-        .map((category) => new Category.fromMap(category))
-        .toList();
+    var list =
+        categories.map((category) => new Category.fromMap(category)).toList();
+    return list;
   } else {
     throw Exception('Failed to load Categories');
   }
