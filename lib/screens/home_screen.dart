@@ -33,6 +33,8 @@ class HomePage extends StatelessWidget {
                               child: GestureDetector(
                                 child: ListTile(
                                   title: Text(
+                                      // in the second part we check if there is acf field. If there is we write the featured image
+//                                    // if there is not, we just put empty string
                                       '${category.name} ${category.acf != null ? category.acf.featuredImage : ''}'),
                                 ),
                                 onTap: () {

@@ -40,6 +40,8 @@ class Category {
       link: map['link'] as String,
       slug: map['slug'] as String,
       taxonomy: map['taxonomy'] as String,
+//      Here we check if there is `acf` key in map, and if that key is indeed `Map`
+//    There are some errors in JSON and if there is nothing in `acf` we put null, else we put `Acf` object
       acf: map['acf'] != null && map['acf'] is Map
           ? Acf.fromMap(map['acf'])
           : null,
@@ -47,6 +49,8 @@ class Category {
   }
 }
 
+// Here we added  toMap and fromMap to Acf class. Notice that the map key `featured_image` must be the same as
+// used in JSON. But the variable is named according to dart standard with camel case `featuredImage`
 class Acf {
   final String featuredImage;
 
