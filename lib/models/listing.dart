@@ -1,6 +1,7 @@
 class Listing {
   final int id;
-  final Guid title;
+  final Title title;
+  final Acf acf;
   // final String description;
   // final String link;
   // final String slug;
@@ -9,6 +10,7 @@ class Listing {
   Listing(
       {this.id,
       this.title,
+      this.acf,
       // this.description,
       // this.link,
       // this.slug,
@@ -18,7 +20,8 @@ class Listing {
   Map<String, dynamic> toMap() {
     return {
       'id': this.id,
-      'title': this.title,
+      'title': this.title.toMap(),
+      'acf': this.acf.toMap(),
       // 'description': this.description,
       // 'link': this.link,
       // 'slug': this.slug,
@@ -29,43 +32,51 @@ class Listing {
   factory Listing.fromMap(Map<String, dynamic> map) {
     return new Listing(
       id: map['id'] as int,
-      title : map['title'] != null ? new Guid.fromMap(map['title']) : null,
-      // title: map['title'] as String,
-      // description: map['description'] as String,
-      // link: map['link'] as String,
-      // slug: map['slug'] as String,
-      // taxonomy: map['taxonomy'] as String,
+      title: map['title'] != null && map['title'] is Map
+          ? Title.fromMap(map['title'])
+          : null,
+       acf: map['acf'] != null && map['acf'] is Map
+          ? Acf.fromMap(map['acf'])
+          : null,
     );
   }
 }
 
 
-class Guid {
-  String rendered;
+class Title {
+  final String listingTitle;
 
-  Guid({this.rendered});
+  Title({this.listingTitle});
 
-  Guid.fromMap(Map<String, dynamic> json) {
-    rendered = json['rendered'];
+  Map<String, dynamic> toMap() {
+    return {
+      'rendered': this.listingTitle,
+    };
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['rendered'] = this.rendered;
-    print(data);
-    return data;
+  factory Title.fromMap(Map<String, dynamic> map) {
+    return new Title(
+      listingTitle: map['rendered'] as String,
+    );
   }
 }
 
 
 
 class Acf {
-  final String featuredImage;
+  final String acfAddress;
 
-  Acf({this.featuredImage});
+  Acf({this.acfAddress});
 
-  factory Acf.fromJson(Map<String, dynamic> map) {
-    print(Acf(featuredImage: map['featured_image']));
-    return Acf(featuredImage: map['featured_image']);
+  Map<String, dynamic> toMap() {
+    return {
+      'acf_address': this.acfAddress,
+    };
+  }
+
+  factory Acf.fromMap(Map<String, dynamic> map) {
+    return new Acf(
+      acfAddress: map['acf_address'] as String,
+    );
   }
 }

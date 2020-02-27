@@ -32,10 +32,17 @@ class HomePage extends StatelessWidget {
                             (category) => Card(
                               child: GestureDetector(
                                 child: ListTile(
+//                                   leading: ClipRRect(
+//                                     child: Image.network(
+//                                       // in the second part we check if there is acf field. If there is we write the featured image
+// //                                    // if there is not, we just put empty string
+//                                       '${category.acf != null ? category.acf.featuredImage : ''}',
+//                                       //height: 80,
+//                                       width: 100,
+//                                     ),
+//                                   ),
                                   title: Text(
-                                      // in the second part we check if there is acf field. If there is we write the featured image
-//                                    // if there is not, we just put empty string
-                                      '${category.name} ${category.acf != null ? category.acf.featuredImage : ''}'),
+                                      '${category.name}'),
                                 ),
                                 onTap: () {
                                   Navigator.push(
