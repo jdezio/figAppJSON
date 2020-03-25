@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
-import 'screens/category_screen.dart';
+import 'package:figwp/provider/_provider.dart';
+import 'package:figwp/router/router.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+        title: 'Taco',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        onGenerateRoute: Router.generator,
+        initialRoute: RouteName.homePage,
       ),
-      home: HomePage(),
-      routes: {
-            //CategoryScreen.routeName: (ctx) => CategoryScreen(),
-            CategoryScreen.routeName: (context) => CategoryScreen(),
-      }
     );
   }
 }
