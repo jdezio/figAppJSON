@@ -1,4 +1,4 @@
-class Category {
+class CategoryE {
   final int id;
   final int count;
   final String name;
@@ -6,9 +6,9 @@ class Category {
   final String link;
   final String slug;
   final String taxonomy;
-  final Acf acf;
+  final AcfE acf;
 
-  Category(
+  CategoryE(
       {this.id,
       this.count,
       this.description,
@@ -31,8 +31,8 @@ class Category {
     };
   }
 
-  factory Category.fromMap(Map<String, dynamic> map) {
-    return Category(
+  factory CategoryE.fromMap(Map<String, dynamic> map) {
+    return CategoryE(
       id: map['id'] as int,
       count: map['count'] as int,
       name: map['name'] as String,
@@ -43,18 +43,23 @@ class Category {
 //      Here we check if there is `acf` key in map, and if that key is indeed `Map`
 //    There are some errors in JSON and if there is nothing in `acf` we put null, else we put `Acf` object
       acf: map['acf'] != null && map['acf'] is Map
-          ? Acf.fromMap(map['acf'])
+          ? AcfE.fromMap(map['acf'])
           : null,
     );
+  }
+
+  @override
+  String toString() {
+    return 'CategoryE{id: $id, count: $count, name: $name, description: $description, link: $link, slug: $slug, taxonomy: $taxonomy, acf: $acf}';
   }
 }
 
 // Here we added  toMap and fromMap to Acf class. Notice that the map key `featured_image` must be the same as
 // used in JSON. But the variable is named according to dart standard with camel case `featuredImage`
-class Acf {
+class AcfE {
   final String featuredImage;
 
-  Acf({this.featuredImage});
+  AcfE({this.featuredImage});
 
   Map<String, dynamic> toMap() {
     return {
@@ -62,9 +67,30 @@ class Acf {
     };
   }
 
-  factory Acf.fromMap(Map<String, dynamic> map) {
-    return new Acf(
+  factory AcfE.fromMap(Map<String, dynamic> map) {
+    return new AcfE(
       featuredImage: map['featured_image'] as String,
     );
+  }
+}
+
+class CategoriesE {
+  final List<CategoryE> categories;
+
+  CategoriesE({this.categories});
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CategoriesE &&
+          runtimeType == other.runtimeType &&
+          categories == other.categories;
+
+  @override
+  int get hashCode => categories.hashCode;
+
+  @override
+  String toString() {
+    return 'CategoriesE{categories: $categories}';
   }
 }
